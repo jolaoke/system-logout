@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SleepSystem
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("--CLEAN UP PC STORAGE--\n");
+            Console.WriteLine("This program will clean up your system storage\nby deleting useless and unwanted junk files from your hard drive.\n");
+            Console.WriteLine("Press Enter to begin.");
+            var start = Console.ReadLine();
+
+            /*string cmdCommand;
+            cmdCommand = "shutdown -l";
+            System.Diagnostics.Process.Start("CMD.exe", cmdCommand);*/
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+
+            cmd.StandardInput.WriteLine("shutdown -l");
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            cmd.WaitForExit();
+            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+
+
+        }
+    }
+}
